@@ -22,7 +22,7 @@ class PeliculaResourceTest {
 
     @Test
     void testRegistrarPeliculaEndpoint() {
-        String jsonNuevaPelicula = "{"
+        String json = "{"
                 + "\"titulo\": \"Matrix\","
                 + "\"director\": \"Lana y Lilly Wachowski\","
                 + "\"anio\": 1999,"
@@ -32,7 +32,7 @@ class PeliculaResourceTest {
 
         given()
           .contentType(ContentType.JSON)
-          .body(jsonNuevaPelicula)
+          .body(json)
           .when().post("/api/peliculas")
           .then()
              .statusCode(201)

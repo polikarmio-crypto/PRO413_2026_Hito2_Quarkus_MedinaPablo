@@ -16,22 +16,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-/**
- * Recurso REST para la gestión de Películas en Quarkus.
- * Diseñado con nivel de Programación III (básico, limpio y claro).
- */
 @Path("/api/peliculas")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class PeliculaResource {
 
     private static final Logger LOG = Logger.getLogger(PeliculaResource.class);
-
-    // Almacenamiento temporal en memoria mediante una lista sincronizada
     private static final List<Pelicula> peliculas = Collections.synchronizedList(new ArrayList<>());
     private static final AtomicLong contadorId = new AtomicLong(1);
 
-    // Bloque de inicialización estática con películas de ejemplo
     static {
         peliculas.add(new Pelicula(
                 contadorId.getAndIncrement(),
@@ -61,13 +54,8 @@ public class PeliculaResource {
         ));
     }
 
-    /**
-     * Operación 1: GET para consultar todas las películas.
-     * Endpoint: GET /api/peliculas
-     */
     @GET
     public Response obtenerPeliculas() {
-        // Mensaje de log en consola para evidenciar la ejecución
         String mensajeLog = String.format("[QUARKUS LOG] GET /api/peliculas - Se consultaron %d películas registradas.", peliculas.size());
         System.out.println(mensajeLog);
         LOG.info(mensajeLog);
@@ -75,10 +63,6 @@ public class PeliculaResource {
         return Response.ok(peliculas).build();
     }
 
-    /**
-     * Operación 2: POST para registrar una nueva película.
-     * Endpoint: POST /api/peliculas
-     */
     @POST
     public Response registrarPelicula(Pelicula nuevaPelicula) {
         if (nuevaPelicula == null || nuevaPelicula.getTitulo() == null || nuevaPelicula.getTitulo().trim().isEmpty()) {
@@ -87,15 +71,12 @@ public class PeliculaResource {
                     .build();
         }
 
-        // Asignar ID autoincremental si no fue provisto
         if (nuevaPelicula.getId() == null || nuevaPelicula.getId() <= 0) {
             nuevaPelicula.setId(contadorId.getAndIncrement());
         }
 
-        // Guardar en la lista en memoria
         peliculas.add(nuevaPelicula);
 
-        // Mensaje de log en consola para evidenciar la ejecución
         String mensajeLog = String.format("[QUARKUS LOG] POST /api/peliculas - Nueva película registrada: ID=%d, Título='%s', Director='%s', Año=%d, Género='%s'",
                 nuevaPelicula.getId(),
                 nuevaPelicula.getTitulo(),
@@ -106,14 +87,9 @@ public class PeliculaResource {
         System.out.println(mensajeLog);
         LOG.info(mensajeLog);
 
-        // Retorna HTTP 201 Created con el objeto creado en formato JSON
         return Response.status(Response.Status.CREATED).entity(nuevaPelicula).build();
     }
 
-    /**
-     * Operación adicional: GET por ID para consultar una película específica.
-     * Endpoint: GET /api/peliculas/{id}
-     */
     @GET
     @Path("/{id}")
     public Response obtenerPeliculaPorId(@PathParam("id") Long id) {

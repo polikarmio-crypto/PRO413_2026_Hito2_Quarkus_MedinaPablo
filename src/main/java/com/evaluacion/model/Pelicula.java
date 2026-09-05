@@ -1,9 +1,5 @@
 package com.evaluacion.model;
 
-/**
- * Modelo que representa el recurso de Película.
- * Conocimientos básicos de Programación III (POJO con atributos, constructores y getters/setters).
- */
 public class Pelicula {
     private Long id;
     private String titulo;
@@ -12,11 +8,9 @@ public class Pelicula {
     private String genero;
     private String sinopsis;
 
-    // Constructor vacío requerido para la deserialización JSON (Jackson)
     public Pelicula() {
     }
 
-    // Constructor con parámetros
     public Pelicula(Long id, String titulo, String director, int anio, String genero, String sinopsis) {
         this.id = id;
         this.titulo = titulo;
@@ -26,7 +20,6 @@ public class Pelicula {
         this.sinopsis = sinopsis;
     }
 
-    // Getters y Setters
     public Long getId() {
         return id;
     }
