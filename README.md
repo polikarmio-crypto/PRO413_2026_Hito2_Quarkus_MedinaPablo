@@ -1,4 +1,4 @@
-# PRO413_20262_Hito2_Quarkus_ApellidoNombre
+# PRO413_2026_Hito2_Quarkus_MedinaPablo
 ## Backend API REST - Gestión de Películas
 
 Proyecto desarrollado para la evaluación **PRO-413 - Programación III (Hito 2: Integración de Frameworks: Quarkus + Laravel)**. Este proyecto implementa un servicio API REST en Quarkus responsable de la gestión del recurso **Películas**, almacenando la información en memoria y registrando mensajes de log en consola para cada operación.
